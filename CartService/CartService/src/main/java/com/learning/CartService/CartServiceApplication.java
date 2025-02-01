@@ -1,15 +1,17 @@
-package com.learning.miniEcommerce;
+package com.learning.CartService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class MiniEcommerceApplication {
+@EnableFeignClients(basePackages = "com.learning.CartService.feign")
+public class CartServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MiniEcommerceApplication.class, args);
+		SpringApplication.run(CartServiceApplication.class, args);
 	}
 
 }

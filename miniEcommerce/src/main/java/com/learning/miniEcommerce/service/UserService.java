@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -68,6 +70,16 @@ public class UserService implements org.springframework.security.core.userdetail
 
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
+	}
+
+	public User getLoggedInUser() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getName());
+		if(auth != null)
+			return userRepo.findByUsername(auth.getName());
+		else
+			return null;
 	}
 
 }

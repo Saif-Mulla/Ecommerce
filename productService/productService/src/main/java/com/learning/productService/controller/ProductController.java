@@ -24,19 +24,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
 	ProductService service; 
 	
-	@RequestMapping("/product")
+	@RequestMapping("/showProducts")
 	public ResponseEntity<List<Product>> getProducts(HttpSession http){
 		System.out.println(http.getId());
 		return new ResponseEntity<List<Product>>(service.getAllProducts(), HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/product/{prodId}")
+	@GetMapping("/{prodId}")
 	public ResponseEntity<Product> getProductById(@PathVariable int prodId){
 		if(service.getProductById(prodId) != null) {
 			return new ResponseEntity<>(service.getProductById(prodId), HttpStatus.OK);
@@ -45,23 +46,23 @@ public class ProductController {
 		}
 	}
 	
-	@PostMapping("/product")
+	@PostMapping("/add")
 	public void addProduct(@RequestBody Product product ){
 		service.addProduct(product);
 		
 	}
 	
-	@PutMapping("/product")
+	@PutMapping("/add")
 	public void updateProduct(@RequestBody Product product) {
 		service.updateProduct(product);
 	}
 	
-	@DeleteMapping("/product/{prodId}")
+	@DeleteMapping("/{prodId}")
 	public String deleteProduct(@PathVariable int prodId) {
 		return service.deleteProduct(prodId);
 	}
 	
-	@GetMapping("/product/search/")
+	@GetMapping("/search/")
 	public ResponseEntity<List<Product>> searchProduct(@RequestParam String keyword) {
 		if(!service.searchProduct(keyword).isEmpty())
 			return new ResponseEntity<List<Product>>(service.searchProduct(keyword),HttpStatus.FOUND);

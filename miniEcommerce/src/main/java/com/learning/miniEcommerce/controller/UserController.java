@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.miniEcommerce.model.User;
 import com.learning.miniEcommerce.service.UserService;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -32,6 +34,12 @@ public class UserController {
 	public User getUser(@PathVariable String username) {
 		System.out.println("CONTROLLER");
 		return userService.getUser(username);
+	}
+	
+	@GetMapping("/isLogin")
+	public User getLoggedInUser() {
+		return userService.getLoggedInUser();
+		
 	}
 	
 	@GetMapping("/admin/users")
